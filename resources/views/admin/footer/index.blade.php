@@ -6,7 +6,6 @@
     <style>
         .altura {
             margin: 5%;
-            height: 600px;
         }
 
         /*
@@ -38,7 +37,7 @@
                         <h5 class="mt-3">{{ __('Descripción de Footer') }}</h5>
                     </div>
                     <div class="col-md-2 text-end">
-                        <a href="#" class="btn btn-success mt-3" data-bs-toggle="modal"
+                        <a href="#" class="btn btn-primary mt-3" data-bs-toggle="modal"
                             data-bs-target="#addFooterModalDescription">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
@@ -126,7 +125,7 @@
                     </div>
                     <hr class="my-3">
                     <div class="text-end">
-                        <button type="button" id="saveRRSSInfo" class="btn btn-success">Guardar</button>
+                        <button type="button" id="saveRRSSInfo" class="btn btn-primary">Guardar</button>
                     </div>
 
                 </div>
@@ -194,7 +193,7 @@
                     </div>
                     <hr class="my-3">
                     <div class="text-end">
-                        <button type="button" id="saveContactInfo" class="btn btn-success">Guardar</button>
+                        <button type="button" id="saveContactInfo" class="btn btn-primary">Guardar</button>
                     </div>
 
                 </div>
@@ -220,7 +219,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" id="saveDescriptionInfo" class="btn btn-success">Guardar</button>
+                    <button type="button" id="saveDescriptionInfo" class="btn btn-primary">Guardar</button>
                 </div>
 
             </div>

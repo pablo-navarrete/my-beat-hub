@@ -8,15 +8,9 @@
     <style>
         .altura {
             margin: 5%;
-            height: 600px;
         }
 
-        .scroll-vertical {
-
-            height: 800px;
-            overflow-y: auto;
-
-        }
+       
 
         .card-header {
             background-color: rgb(197, 197, 197);
@@ -33,7 +27,7 @@
     <div class="container altura scroll-vertical">
         <h3 class="mt-3" style="color: white;">Categorías</h3>
         <div style="display: flex;">
-            <a href="#" class="btn btn-success" style="margin-left: auto; margin-right: 30px;" data-bs-toggle="modal"
+            <a href="#" class="btn btn-primary" style="margin-left: auto; margin-right: 30px;" data-bs-toggle="modal"
                 data-bs-target="#addCategoryModal">
                 <i class="fa-solid fa-plus"></i>
             </a>
@@ -92,7 +86,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -210,13 +204,16 @@
                         searchable: false,
                         render: function(data, type, row) {
                             return `
-                        <button class="btn btn-primary btn-sm  edit-btn" data-id="${row.id}" data-name="${row.name}" data-description="${row.description}" data-status="${row.status}">
-                            <i class="fa-solid fa-pen-to-square"></i> 
-                        </button>
-                        <button class="btn btn-danger btn-sm   delete-btn" data-id="${row.id}">
-                            <i class="fa-solid fa-trash-can"></i> 
-                        </button>
-                    `;
+                        <div class="dropdown text-center">
+                            <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Opciones
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item btn-primary edit-btn" href="#" data-id="${row.id}" data-name="${row.name}" data-description="${row.description}" data-status="${row.status}"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
+                                <li><a class="dropdown-item btn-danger delete-btn" href="#" data-id="${row.id}"><i class="fa-solid fa-trash-can"></i> Eliminar</a></li>
+                            </ul>
+                        </div>`;
+
                         }
                     }
                 ],
@@ -227,7 +224,7 @@
                     "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
                     "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                     "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "sSearch": "Buscar:",
+                    "sSearch": "Buscador",
                     "sLoadingRecords": "Cargando...",
                     "oPaginate": {
                         "sFirst": "Primero",

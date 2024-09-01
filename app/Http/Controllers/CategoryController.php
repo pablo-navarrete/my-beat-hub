@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -91,5 +92,33 @@ class CategoryController extends Controller
 
         $categories = Category::where('status', 1)->get();
         return view('category', compact('categories'));
+    }
+
+
+    public function tipoCategory($id)
+    {
+        // Lógica para manejar la categoría con el ID proporcionado
+        $category = Category::find($id);
+
+        if (!$category) {
+            abort(404); // O manejar el caso en que la categoría no exista
+        }
+
+        $products = $category->products()
+        ->join('users', 'products.user_id', '=', 'users.id')
+        ->leftJoin('comments', 'products.id', '=', 'comments.product_id')
+        ->leftJoin('likes', 'products.id', '=', 'likes.product_id')
+        ->select('products.*', 'users.username as user_name',
+                DB::raw('COUNT(DISTINCT comments.id) as comments_count'),
+                DB::raw('COUNT(DISTINCT likes.id) as likes_count'),
+                DB::raw('SUM(CASE WHEN likes.user_id = ' . ($userId ?? 0) . ' THEN 1 ELSE 0 END) as liked'))
+        ->where('products.status', 1)
+        ->groupBy('products.id', 'users.username')
+        ->orderBy('products.created_at', 'desc')->get();
+        // Pasar la categoría a la vista
+        return view('tipo-categoria', [
+            'category' => $category,
+            'products' => $products
+        ]);
     }
 }

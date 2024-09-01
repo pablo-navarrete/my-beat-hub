@@ -6,6 +6,9 @@
 @endsection
 
 @section('css_before')
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <style>
         .carousel-item img {
             width: 100%;
@@ -24,10 +27,13 @@
         }
 
         .custom-card-bg {
-            background-color: #e4e3e3 !important;
+            background-color: #252527 !important;
             /* Color gris personalizado */
-            box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+            border-radius: 5px;
+            /* Opcional: Suavizar los bordes */
         }
+
 
         .titulosh3 {
             color: #eaeaea;
@@ -40,16 +46,19 @@
             left: 50%;
             transform: translate(-50%, -50%);
             opacity: 0.7;
-            color: rgb(62, 62, 62);
+            color: rgb(255, 255, 255);
             transition: opacity 0.3s ease;
-            border: 4px solid #11c511;
-            /* Borde verde del icono */
+            width: 70px;
+            /* Ajusta el tamaño del círculo */
+            height: 70px;
+            background-color: rgba(63, 62, 62, 0.7);
+            /* Color gris opaco */
             border-radius: 50%;
-            /* Hacer que el borde sea circular */
-            padding: 4px;
-            /* Espacio entre el borde y el icono */
-            background-color: rgba(0, 0, 0, 0.3);
-            /* Fondo transparente para el borde */
+            /* Hacer que el contenedor sea un círculo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
         }
 
         .play-button:hover {
@@ -61,25 +70,34 @@
 
         .card-body a {
             text-decoration: none;
-            color: black;
+
+        }
+
+        .card-body .card-title {
+            color: white;
         }
 
         .card-body a:hover {
             text-decoration: none;
-            color: #11c511;
+            color: rgb(21, 146, 242);
+        }
+
+        .card-body a .card-title:hover {
+            text-decoration: none;
+            color: rgb(21, 146, 242);
         }
 
         .card-body i {
             font-size: 1.5rem;
             /* Tamaño ajustable */
-            color: #11c511;
+            color: rgb(21, 146, 242);
             /* Color verde */
             transition: color 0.3s ease;
             margin: 0.5rem !important;
         }
 
         .card-body i:hover {
-            color: rgb(4, 137, 4);
+            color: rgb(19, 106, 172);
             /* Color verde más oscuro al pasar el cursor */
         }
 
@@ -88,9 +106,7 @@
             /* Separación entre el precio y los íconos */
         }
 
-        .precio {
-            color: white !important;
-        }
+
 
         .nombre-usuario {
             color: rgb(203, 203, 203) !important;
@@ -126,41 +142,87 @@
             padding-left: 0;
             padding-right: 0;
         }
+
+        .corazon {
+            color: rgb(158, 159, 161) !important;
+        }
+
+        .corazon:hover {
+            color: rgb(221, 218, 218) !important;
+        }
+
+        .play {
+            color: rgb(158, 159, 161) !important;
+        }
+
+        .play:hover {
+            color: rgb(221, 218, 218) !important;
+        }
+
+        .shopping {
+            color: rgb(169, 169, 171) !important;
+        }
+
+        .share {
+            color: rgb(158, 159, 161) !important;
+        }
+
+        .share:hover {
+            color: rgb(221, 218, 218) !important;
+        }
+
+        .msm {
+            color: rgb(158, 159, 161) !important;
+        }
+
+        .msm:hover {
+            color: rgb(221, 218, 218) !important;
+        }
+
+        .trash {
+            color: rgb(158, 159, 161) !important;
+        }
+
+        .trash:hover {
+            color: rgb(221, 218, 218) !important;
+        }
+
+        .comprar:hover {
+            color: rgb(221, 218, 218) !important;
+        }
+
+        .card-text {
+            color: rgb(196, 195, 195);
+        }
+
+        .card-user {
+            color: rgb(134, 130, 130);
+        }
+      
     </style>
 @endsection
 @section('content')
-    <!--banner carrousel-->
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <!-- banner carrousel -->
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
+            @foreach ($banners as $index => $banner)
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}"
+                    class="{{ $index == 0 ? 'active' : '' }}" aria-current="{{ $index == 0 ? 'true' : '' }}"
+                    aria-label="Slide {{ $index + 1 }}"></button>
+            @endforeach
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ asset('img/studio1.jpg') }}" class="d-block w-100" alt="Slide 1">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>First Slide Label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
+            @foreach ($banners as $index => $banner)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }} position-relative">
+                    <img src="{{ Storage::url($banner->image_url) }}" class="d-block w-100" alt="Slide {{ $index + 1 }}"
+                        style="filter: brightness(50%);">
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                        <h1>{{ $banner->title }}</h1>
+                        <h5>{{ $banner->description }}</h5>
+                        <a href="{{ $banner->url }}" class="btn btn-outline-primary">{{ $banner->name_button }}</a>
+                    </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('img/studio2.jpg') }}" class="d-block w-100" alt="Slide 2">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Second Slide Label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('img/imagen3.jpeg') }}" class="d-block w-100" alt="Slide 3">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Third Slide Label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
-                </div>
-            </div>
+            @endforeach
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -171,553 +233,210 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
     <br>
     <div class="container">
         <h3 class="titulosh3 m-5 text-center">Usuarios Destacados</h3>
-        <div id="carouselExampleControls" class="carousel slide">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row flex-wrap justify-content-around">
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="{{ route('perfil.perfil') }}" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">easdas sad asd asd as das d asd a</p>
+      <div id="carouselExampleControls" class="carousel slide">
+    <div class="carousel-inner">
+        @php
+            $isActive = true;
+        @endphp
+
+        @foreach ($users->chunk(5) as $chunk)
+            <div class="carousel-item {{ $isActive ? 'active' : '' }}">
+                <div class="row no-margin-row justify-content-center">
+                    @foreach ($chunk as $user)
+                        <div class="card col-6 col-md-3 col-lg-2 m-3 custom-card-bg text-center" >
+                            <a href="{{ route('perfil.perfil', ['id' => $user->id]) }}" class="card-title">
+                            <img src="{{ asset('img/mjimg.jpg') }}" class="card-img-top" alt="{{ $user->name }}" style="height: 150px;">
                             </a>
-
+                            <div class="card-body">
+                                <a href="{{ route('perfil.perfil', ['id' => $user->id]) }}" class="card-title">
+                                    <h4 class="card-title"><strong>{{ $user->username }}</strong></h4>
+                                    <h6 class="card-user"><strong>{{ $user->name }} {{ $user->lastname }}</strong></h6>
+                                </a>
+                                <br>
+                                   
+                                @auth
+                                @if (Auth::id() !== $user->id)
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary follow-btn d-flex justify-content-center w-100"
+                                            data-followed-id="{{ $user->id }}">
+                                        <span class="follow-btn-text">{{ $isFollowing[$user->id] ? 'Dejar de Seguir' : 'Seguir' }}</span>
+                                    </button>
+                                </div>
+                            @endif
+                            @else
+                                <div class="d-flex justify-content-center">
+                                    <button id="follow-btn" class="btn btn-primary d-flex justify-content-center w-100" data-bs-toggle="modal"
+                                        data-bs-target="#followModal">
+                                        <span id="follow-btn-text">Seguir</span>
+                                    </button>
+                                </div>
+                            @endauth
+                                    
+                                
+                            </div>
                         </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen asd asd as d asdasdasdasdasdasdasd d as d asdadasdasd
-                                </p>
-                            </a>
-
-                        </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen 1</p>
-                            </a>
-
-                        </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen 1</p>
-                            </a>
-
-                        </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen 1</p>
-                            </a>
-
-                        </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen 1</p>
-                            </a>
-
-                        </div>
-
-                        <!-- Agrega más imágenes según sea necesario -->
-                    </div>
+                    @endforeach
                 </div>
-                <div class="carousel-item">
-                    <div class="row flex-wrap justify-content-around">
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">easdas sad asd asd as das d asd a</p>
-                            </a>
-
-                        </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen asd asd as d asdasdasdasdasdasdasd d as d asdadasdasd
-                                </p>
-                            </a>
-
-                        </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen 1</p>
-                            </a>
-
-                        </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen 1</p>
-                            </a>
-
-                        </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen 1</p>
-                            </a>
-
-                        </div>
-                        <div class="text-center mb-3 col-md-2">
-                            <a href="http://" class="user-destacado">
-                                <img src="{{ asset('img/mjimg.jpg') }}" class="img-fluid rounded-circle" alt="Imagen 1"
-                                    style="width: 100px; height: 100px; object-fit: cover;">
-                                <p class="mt-2 nombre-usuario">Imagen 1</p>
-                            </a>
-
-                        </div>
-
-                        <!-- Agrega más imágenes según sea necesario -->
-                    </div>
-                </div>
-
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="prev"
-                style="width: 2%; left: 0; position: absolute; top: 50%; transform: translateY(-50%);">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="next"
-                style="width: 2%; right: 0; position: absolute; top: 50%; transform: translateY(-50%);">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
+
+            @php
+                $isActive = false;
+            @endphp
+        @endforeach
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev"
+        style="width: 2%; left: 0; position: absolute; top: 50%; transform: translateY(-50%);">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="next"
+        style="width: 2%; right: 0; position: absolute; top: 50%; transform: translateY(-50%);">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
 
         <div class="row no-margin-row justify-content-center">
             <h3 class="titulosh3 m-5 text-center">Más recientes</h3>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/mjimg.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>Asesina</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
+
+            @foreach ($recentProducts as $recent)
+                <!-- Card del producto -->
+                <div class="card col-md-3 m-3 custom-card-bg text-center" style="width: 18rem;">
+                    <img src="{{ Storage::url($recent->image_url) }}" class="card-img-top" alt="{{ $recent->title }}">
+                    <button class="play-button" data-audio-src="{{ Storage::url($recent->audio_url) }}"
+                        data-image-src="{{ Storage::url($recent->image_url) }}" 
+                        data-title="{{ $recent->title }}"
+                        data-username="{{ $recent->user_name }}" 
+                        data-product-id="{{ $recent->id }}"
+                        data-price="{{ number_format($recent->price, 0, '.', '.') }}"
+                        data-liked="{{ $recent->liked ? 'true' : 'false' }}">
+                        <i class="fas fa-play-circle fa-5x"></i>
+                    </button>
+
+                    <div class="card-body">
+                        <a href="{{ route('product.verProducto', ['id' => $recent->id]) }}" class="card-title">
+                            <h4 class="card-title"><strong>{{ $recent->title }}</strong></h4>
+                        </a>
+                        <a href="{{ route('perfil.perfil', ['id' => $recent->user_id]) }}" class="card-user"><strong>{{ $recent->user_name }}</strong></a>
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="#"
+                                    class="btn btn-secondary btn-sm d-flex align-items-center justify-content-between comprar">
+                                    <span class="d-flex align-items-center bg-primary text-white px-2 py-1 rounded"
+                                        style="margin-right: 8px;">
+                                        <strong>$ {{ number_format($recent->price, 0, '.', '.') }}</strong>
+                                    </span>
+                                    <span class="d-flex align-items-center">
+                                        Agregar al carro
+                                        <i class="fa-solid fa-cart-shopping shopping" style="margin-left: 8px;"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="col-3 text-center">
+                            @auth
+                                <a href="#" class="like-button" data-product-id="{{ $recent->id }}">
+                                    <i class="fa-solid fa-heart corazon {{ $recent->liked ? 'liked' : '' }}" id="heart-icon-{{ $recent->id }}"></i>
+                                    <span class="text-center" style="color: white; white-space: nowrap;" id="like-count-{{ $recent->id }}">
+                                        {{ $recent->likes_count }}
+                                    </span>
+                                </a>
+                            @else
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#likeModal">
+                                    <i class="fa-solid fa-heart corazon"></i>
+                                    <span class="text-center" style="color: white; white-space: nowrap;">
+                                        {{ $recent->likes_count }}
+                                    </span>
+                                </a>
+                            @endauth
+                               
+                            </div>
+                            <div class="col-3 text-center">
+                                <a href="#" class="text-center">
+                                    <i class="fa-solid fa-circle-play play text-center"></i>
+                                    <span class="text-center" style="color: white; white-space: nowrap;">14840</span>
+                                </a>
+                            </div>
+                            <div class="col-3 text-center">
+                                <a href="#" class="text-center" data-bs-toggle="modal"
+                                    data-bs-target="#commentsModal" data-product-id="{{ $recent->id }}">
+                                    <i class="fa-solid fa-message msm text-center"></i>
+                                    <span class="text-center" style="color: white;"
+                                        id="comment-count-{{ $recent->id }}">{{ $recent->comments_count }}</span>
+
+                                </a>
+
+                            </div>
+                            <div class="col-3 text-center">
+                                <a href="#" class="text-center">
+                                    <i class="fa-solid fa-share text-center share"></i>
+                                    <span class="text-center" style="color: white;">3330</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/marcianeke1.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>dimelo mamacita</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/polima1.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>sutra ireal</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>saturno studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/mj2.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>hora del party</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/mj2.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>hora del party</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/marcianeke1.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>dimelo mamacita</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/polima1.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>sutra ireal</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>saturno studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/gabo1.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>cosa linda</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>saturno studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
+            @endforeach
+
             <div class="col-md-12 text-center">
-                <button class="btn btn-outline-success m-5">Ver más recientes</button>
+                <button class="btn btn-outline-primary m-5">Ver más recientes</button>
             </div>
 
             <h3 class="titulosh3 m-5 text-center">Más populares</h3>
 
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/mjimg.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>Asesina</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/gabo1.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>cosa linda</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>saturno studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/mj2.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>hora del party</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/polima1.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>sutra ireal</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>saturno studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/gabo1.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>cosa linda</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>saturno studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/marcianeke1.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>dimelo mamacita</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/mj2.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>hora del party</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong> Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
-            <div class="card col-md-3 m-3 custom-card-bg" style="width: 18rem;">
-                <img src="{{ asset('img/mjimg.jpg') }}" class="card-img-top" alt="...">
-                <a href="#" class="play-button"> <i class="fas fa-play-circle fa-5x"></i>
-                </a>
-                <div class="card-body">
-                    <a href="#" class="">
-                        <h4 class="card-title"><strong>hora del party</strong></h4>
-                    </a>
-                    <a href="#" class="card-title"><strong>la 256 studio</strong></a>
-                    <br>
-                    <span class="card-text">type polima westcost perreo regaetoon.</span>
-                    <br>
-                    <span class="card-text"><strong>bpm:</strong> 120</span>
-                    <br>
-                    <span class="card-text"><strong>key:</strong> Cb mayor</span>
-                    <br>
-                    <span class="card-text"><strong>Licencia:</strong>No Exclusiva</span>
-                    <hr class="my-3">
-                    <a href="#" class="btn btn-primary btn-sm precio"><strong>$
-                            225.000</strong></a>&nbsp;&nbsp;&nbsp;
-                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="#"><i class="fa-solid fa-heart"></i></a>
-                    <a href="#"><i class="fa-solid fa-circle-play"></i></a>
-                </div>
-            </div>
             <div class="col-md-12 text-center">
-                <button class="btn btn-outline-success m-5">Ver más populares</button>
+                <button class="btn btn-outline-primary m-5">Ver más populares</button>
             </div>
+            <h3 class="titulosh3 m-5 text-center">Seguidos</h3>
 
+            <div class="col-md-12 text-center">
+                <button class="btn btn-outline-primary m-5">Ver más Seguidos</button>
+            </div>
 
         </div>
     </div>
+
+
+
+ 
 @endsection
 @section('js_after')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script>
+  $(document).ready(function() {
+    $('.follow-btn').click(function() {
+        var followedId = $(this).data('followed-id');
+        var button = $(this);
+        var buttonText = button.find('.follow-btn-text');
+
+        $.ajax({
+            url: '{{ route('follow') }}', // Ruta al método del controlador
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                followed_id: followedId
+            },
+            success: function(response) {
+                if (response.status === 'followed') {
+                    buttonText.text('Dejar de Seguir');
+                } else {
+                    buttonText.text('Seguir');
+                }
+            }
+        });
+    });
+});
+
+
+    </script>
 @endsection

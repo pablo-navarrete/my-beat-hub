@@ -30,7 +30,7 @@
             /* Borde debajo del menú */
             padding: 0 20px;
             /* Padding alrededor del contenido del menú */
-            box-shadow: 0 2px 4px rgba(0, 255, 38, 0.1);
+            box-shadow: 0 2px 4px rgb(3, 40, 69);
             /* Opcional: Sombra para un efecto visual adicional */
             z-index: 1030;
             /* Asegura que el menú quede por encima de otros elementos */
@@ -43,7 +43,7 @@
         }
 
         .navbar .navbar-brand:hover {
-            color: #11c511;
+            color: rgb(0, 95, 168);
             /* Color del logo en hover (amarillo en este caso) */
         }
 
@@ -65,7 +65,7 @@
         }
 
         .navbar .nav-link:hover {
-            color: #11c511;
+            color: rgb(21, 146, 242);
             /* Color de texto en hover (amarillo en este caso) */
             /*background-color: #333;*/
             /* Fondo oscuro en hover */
@@ -120,19 +120,19 @@
         }
 
         .navbar-toggler:hover .fa-bars {
-            color: #11c511;
+            color: rgb(21, 146, 242);
             /* Color amarillo en hover */
         }
 
         .search {
-            background-color: #11c511;
+            background-color: rgb(21, 146, 242);
         }
 
         /* Estilo del botón de búsqueda */
         .input-group .search {
-            border: 2px solid #28a745;
+            border: 2px solid rgb(21, 146, 242);
             /* Borde verde */
-            color: #28a745;
+            color: rgb(21, 146, 242);
             /* Color del texto verde */
             background-color: transparent;
             /* Fondo transparente */
@@ -142,7 +142,7 @@
 
         /* Estilo del botón de búsqueda al pasar el ratón */
         .input-group .search:hover {
-            background-color: #28a745;
+            background-color: rgb(21, 146, 242);
             /* Fondo verde al pasar el ratón */
             color: #fff;
             /* Texto blanco al pasar el ratón */
@@ -163,7 +163,7 @@
         .navbar .nav-link.dropdown-toggle:hover,
         .navbar .nav-link.dropdown-toggle:focus,
         .navbar .nav-link.dropdown-toggle:active {
-            color: #28a745 !important;
+            color: rgb(21, 146, 242) !important;
             /* Color del texto al pasar el ratón, al enfocar y al seleccionar */
             background-color: transparent !important;
             /* Fondo transparente para evitar oscurecimiento */
@@ -192,7 +192,7 @@
         .navbar .dropdown-item:hover,
         .navbar .dropdown-item:focus,
         .navbar .dropdown-item:active {
-            color: #28a745;
+            color: rgb(21, 146, 242);
             /* Color del texto del ítem al pasar el ratón, al enfocar y al seleccionar */
             background-color: #333;
             /* Fondo oscuro del ítem al pasar el ratón, al enfocar y al seleccionar */
@@ -224,7 +224,7 @@
         }
 
         footer a:hover {
-            color: #11c511;
+            color: rgb(21, 146, 242);
             /* Color verde claro al pasar el ratón */
         }
 
@@ -235,7 +235,7 @@
         }
 
         footer .fab:hover {
-            color: #11c511;
+            color: rgb(21, 146, 242);
             /* Color verde claro al pasar el ratón */
         }
 
@@ -285,13 +285,13 @@
         }
 
         .vertical-menu a:hover {
-            background-color: #28a745;
+            background-color: rgb(21, 146, 242);
             border-radius: 5px;
         }
 
         /* Estilo de los ítems seleccionados en el menú vertical */
         .vertical-menu .active {
-            background-color: #28a745;
+            background-color: rgb(11, 85, 143);
             /* Fondo verde para el ítem activo */
             color: #fff;
             /* Texto blanco para el ítem activo */
@@ -300,7 +300,7 @@
 
         .nav-link .active {
 
-            color: #28a745;
+            color: rgb(20, 107, 174);
         }
 
         html,
@@ -325,7 +325,7 @@
 
         .vertical-menu {
             width: 230px;
-            background-color: #333;
+            background-color: #27282f;
             padding: 10px;
             box-sizing: border-box;
             position: relative;
@@ -341,16 +341,68 @@
             flex: 1;
             padding: 20px;
         }
+
+
+          /*reproductor*/
+          .audio-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            display: none; /* Oculto por defecto */
+        }
+
+        .audio-player .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .audio-player button {
+            background: #444;
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        #progress {
+            flex-grow: 1;
+            background: #555;
+            border-radius: 5px;
+            height: 5px;
+            position: relative;
+            margin: 0 10px;
+        }
+
+        #progress-bar {
+            background: #0f0;
+            height: 100%;
+            width: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 5px;
+        }
+
+        #current-time, #duration {
+            font-size: 0.9em;
+        }
+
     </style>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body style="background-color: #222222;">
+<body style="background-color:  #18191c;">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container-fluid ms-5 me-5 m-1">
-            <a class="navbar-brand" href="/">MYBEATHUB</a>
+            <a class="navbar-brand" href="/" style="color: rgb(21, 146, 242);">MYBEATHUB</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -377,18 +429,7 @@
                     </div>
                 </form>
                 <ul class="navbar-nav ms-3">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle no-caret" href="" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <i class="fa-solid fa-circle-play"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <div class="text-center m-5">
-                                <p style="color: #fff; ms-5 me-5">La lista de reproducción esta vacía</p>
-                            </div>
-
-                        </div>
-                    </li>
+                   
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle no-caret" href="" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -401,19 +442,7 @@
 
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle no-caret" href="" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            <span class="badge bg-danger">0</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <div class="text-center m-5">
-                                <p style="color: #fff; ms-5 me-5">No hay productos para comprar</p>
-                            </div>
-
-                        </div>
-                    </li>
+                   
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle no-caret" href="" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -423,6 +452,20 @@
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <div class="text-center m-5">
                                 <p style="color: #fff; ms-5 me-5">No hay notificaciones</p>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle no-caret" href="" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="badge bg-danger">0</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <div class="text-center m-5">
+                                <p style="color: #fff; ms-5 me-5">No hay productos para comprar</p>
                             </div>
 
                         </div>
@@ -445,8 +488,8 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <div class="perfil-title">
-                                        <p class="title-perfil ms-3 me-3">
-                                            <strong>{{ Auth::user()->name }}</strong>
+                                        <p class="title-perfil ms-3 me-3 ">
+                                            <strong>{{ Auth::user()->username }}</strong>
                                             <br>
                                             <span class="small">{{ Auth::user()->email }}</span>
 
@@ -495,7 +538,7 @@
                 <a href="{{ route('estadisticas.admin') }}"
                     class="{{ request()->is('estadisticas/admin') ? ' active' : '' }}"><i
                         class="fa-solid fa-chart-line"></i> Estadísticas</a>
-                <a href="#section5"><i class="fa-solid fa-panorama"></i> Banner</a>
+                <a href="{{ route('banner.index') }}" class="{{ request()->is('banner') ? ' active' : '' }}"><i class="fa-solid fa-panorama"></i> Banner</a>
                 <a href="{{ route('category.index') }}"
                     class="{{ request()->is('categorias') ? ' active' : '' }}"><i class="fa-solid fa-list"></i>
                     Categorías</a>
@@ -568,7 +611,44 @@
         </div>
     </div>
 
+<!-- Reproductor de audio fijo en el pie de la pantalla -->
+<div id="audio-player" class="audio-player">
+    <div id="progress-container" class="d-flex align-items-center">
+        <span id="current-time" class="me-2">00:00</span>
+        <div id="progress" class="flex-grow-1">
+            <div id="progress-bar"></div>
+        </div>
+        <span id="duration" class="ms-2">00:00</span>
+    </div>
+    <div class="controls mt-2 row align-items-center">
+        <div class="col-md-6 d-flex align-items-center">
+            <div class="me-3">
+                <img id="track-art" src="" class="card-img-top rounded" alt="" style="height:80px; width:80px;">
+            </div>
+            <div class="me-3 card-title">
+                <a id="track-title" href="#" class="card-user"><h4 class="card-title mb-0"><strong></strong></h4></a> 
+            </div>
+           
+            <div class="me-3">
+                <button id="like-button" class="btn"><i class="fa-solid fa-heart"></i></button>
+            </div>
+            <div class="me-3">
+                <button id="message-button" class="btn"><i class="fa-solid fa-message msm text-center"></i></button>
+            </div>
+        </div>
 
+        <div class="col-md-4 d-flex align-items-center justify-content-start">
+            <button id="play-pause" class="play me-2 btn btn-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; padding: 0;">
+                <i class="fa-solid fa-play fa-2x"></i>
+            </button>
+            <button id="volume-control" class="btn btn-secondary"><i class="fa-solid fa-volume-high"></i></button>
+        </div>
+
+        <div class="col-md-2 text-end">
+            <button id="close-player" class="btn btn-danger btn-sm">X</button>
+        </div>
+    </div>
+</div>
     {{-- Footer --}}
     <!-- Footer -->
     <footer class="text-center text-lg-start  text-muted" style="background-color: #000;">
@@ -611,7 +691,7 @@
                     <!-- Grid column -->
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                         <!-- Content -->
-                        <h6 class="text-uppercase fw-bold mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4" style="color: rgb(21, 146, 242);">
                             MYBEATHUB
                         </h6>
                         @if ($footer)
@@ -695,7 +775,7 @@
         <!-- Copyright -->
         <div class="text-center p-4" style="background-color: #151515;">
             © 2024 Copyright:
-            <a class="text-reset fw-bold" href="https://mybeathub.com/">MYBEATHUB.COM</a>
+            <a class="text-reset fw-bold" href="https://mybeathub.com/" style="color: rgb(21, 146, 242) !important;">MYBEATHUB.COM</a>
         </div>
         <!-- Copyright -->
     </footer>
@@ -703,6 +783,179 @@
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     @yield('js_after')
+    <script>
+   
+   document.addEventListener('DOMContentLoaded', function() {
+    const audioPlayer = document.getElementById('audio-player');
+    const audioElement = new Audio();
+    const playPauseButton = document.getElementById('play-pause');
+    const progressContainer = document.getElementById('progress');
+    const progressBar = document.getElementById('progress-bar');
+    const currentTimeDisplay = document.getElementById('current-time');
+    const durationDisplay = document.getElementById('duration');
+    const closePlayerButton = document.getElementById('close-player');
+    const volumeControlButton = document.getElementById('volume-control');
+    const playButtons = document.querySelectorAll('.play-button');
+
+    let isPlaying = false;
+    let isDragging = false;
+    let wasPlayingBeforeDrag = false;
+    let isVolumeHigh = true;
+    let currentPlayingButton = null;
+
+    function togglePlayPause() {
+        if (isPlaying) {
+            audioElement.pause();
+        } else {
+            audioElement.play();
+        }
+        isPlaying = !isPlaying;
+        updatePlayPauseButton();
+    }
+
+    function updatePlayPauseButton() {
+        playPauseButton.innerHTML = isPlaying
+            ? '<i class="fa-solid fa-pause fa-2x"></i>'
+            : '<i class="fa-solid fa-play fa-2x"></i>';
+    }
+
+    function updateProgressBar() {
+        if (audioElement.duration) {
+            const progressPercentage = (audioElement.currentTime / audioElement.duration) * 100;
+            progressBar.style.width = progressPercentage + '%';
+        }
+    }
+
+    function updateTimeDisplay() {
+        currentTimeDisplay.textContent = formatTime(audioElement.currentTime);
+        durationDisplay.textContent = formatTime(audioElement.duration);
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function handleProgressDrag(e) {
+        const width = progressContainer.clientWidth;
+        const clickX = e.clientX - progressContainer.getBoundingClientRect().left;
+        const progressPercentage = Math.max(0, Math.min(100, (clickX / width) * 100));
+        progressBar.style.width = progressPercentage + '%';
+        audioElement.currentTime = (progressPercentage / 100) * audioElement.duration;
+    }
+
+    function initializePlayer(audioSrc, button) {
+        if (isPlaying) {
+            audioElement.pause();
+            if (currentPlayingButton) {
+                const oldIcon = currentPlayingButton.querySelector('i');
+                oldIcon.classList.remove('fa-pause-circle');
+                oldIcon.classList.add('fa-play-circle');
+            }
+        }
+
+        audioElement.src = audioSrc;
+        audioPlayer.style.display = 'block';
+        audioElement.play();
+        isPlaying = true;
+        updatePlayPauseButton();
+
+        currentPlayingButton = button;
+        const icon = currentPlayingButton.querySelector('i');
+        icon.classList.remove('fa-play-circle');
+        icon.classList.add('fa-pause-circle');
+    }
+
+    playPauseButton.addEventListener('click', togglePlayPause);
+
+    closePlayerButton.addEventListener('click', function() {
+        audioPlayer.style.display = 'none';
+        audioElement.pause();
+        isPlaying = false;
+        updatePlayPauseButton();
+        if (currentPlayingButton) {
+            const icon = currentPlayingButton.querySelector('i');
+            icon.classList.remove('fa-pause-circle');
+            icon.classList.add('fa-play-circle');
+        }
+    });
+
+    audioElement.addEventListener('timeupdate', function() {
+        if (!isDragging) {
+            updateProgressBar();
+        }
+        updateTimeDisplay();
+    });
+
+    audioElement.addEventListener('loadedmetadata', function() {
+        updateTimeDisplay();
+    });
+
+    audioElement.addEventListener('ended', function() {
+        isPlaying = false;
+        updatePlayPauseButton();
+        if (currentPlayingButton) {
+            const icon = currentPlayingButton.querySelector('i');
+            icon.classList.remove('fa-pause-circle');
+            icon.classList.add('fa-play-circle');
+        }
+    });
+
+    progressContainer.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        wasPlayingBeforeDrag = isPlaying;
+        audioElement.pause();
+        handleProgressDrag(e);
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+            handleProgressDrag(e);
+        }
+    });
+
+    document.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+            if (wasPlayingBeforeDrag) {
+                audioElement.play();
+            }
+        }
+    });
+
+    rewindButton.addEventListener('click', function() {
+        audioElement.currentTime -= 10; // Retroceder 10 segundos
+    });
+
+    fastForwardButton.addEventListener('click', function() {
+        audioElement.currentTime += 10; // Adelantar 10 segundos
+    });
+
+    volumeControlButton.addEventListener('click', function() {
+        isVolumeHigh = !isVolumeHigh;
+        audioElement.volume = isVolumeHigh ? 1 : 0.5;
+        volumeControlButton.innerHTML = isVolumeHigh
+            ? '<i class="fa-solid fa-volume-high"></i>'
+            : '<i class="fa-solid fa-volume-low"></i>';
+    });
+
+    playButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const audioSrc = button.getAttribute('data-audio-src');
+            if (audioSrc) {
+                if (isPlaying && audioElement.src === audioSrc) {
+                    togglePlayPause(); // Pausar si el mismo audio se está reproduciendo
+                } else {
+                    initializePlayer(audioSrc, button);
+                }
+            }
+        });
+    });
+});
+
+    </script>
 </body>
 
 </html>

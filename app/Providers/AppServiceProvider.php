@@ -6,7 +6,7 @@ use App\Models\RRSSFooter;
 use App\Models\Footer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\DB;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         $contactFooter = ContactFooter::first();
         $rrssFooter = RRSSFooter::first();
         $footer = Footer::first();
+       
 
         // Compartir las variables globalmente
         View::share('contactFooter', $contactFooter);

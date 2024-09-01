@@ -4,7 +4,6 @@
     <style>
         .altura {
             margin: 5%;
-            height: 800px;
         }
 
         .card-header {
@@ -56,7 +55,7 @@
 
 
                     <div class="col-md-2 mt-4 text-center card-container">
-                        <a href="#" class="category-link">
+                        <a href="{{ route('category.tipoCategory', ['id' => $category->id]) }}" class="category-link">
                             <div class="card" style="background-color: {{ $randomColor }};">
                                 <h5 class="m-4" style="color: white;">{{ $category->name }}</h5>
                             </div>

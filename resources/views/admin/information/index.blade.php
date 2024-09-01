@@ -6,7 +6,6 @@
     <style>
         .altura {
             margin: 5%;
-            height: 600px;
         }
 
         .scroll-vertical {
@@ -68,7 +67,7 @@
     <div class="container altura scroll-vertical">
         <h3 class="mt-3" style="color: white;">Información</h3>
         <div style="display: flex;">
-            <a href="#" class="btn btn-success" style="margin-left: auto; margin-right: 30px;" data-bs-toggle="modal"
+            <a href="#" class="btn btn-primary" style="margin-left: auto; margin-right: 30px;" data-bs-toggle="modal"
                 data-bs-target="#addInformationModal">
                 <i class="fa-solid fa-pen-to-square"></i>
             </a>
@@ -105,7 +104,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
             </div>
